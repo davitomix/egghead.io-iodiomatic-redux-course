@@ -7,7 +7,6 @@
 - React
 - ES6
 - Webpack
-- Jest
 
 
 ## Usage

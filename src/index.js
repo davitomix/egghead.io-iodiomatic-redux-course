@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/9avoidingArrayMutations'
+import './examples/10avoidingObjectMutations'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/6storeMethods'
+import './examples/7storeFromScratch'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

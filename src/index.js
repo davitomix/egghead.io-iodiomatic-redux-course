@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/13reducerCompositionwithArrays'
+import './examples/14reducerCompositionwithObjects'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

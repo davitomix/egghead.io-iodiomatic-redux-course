@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/27generatingContainerswithconnect'
+import './examples/2829generatingContainerswithConnectAddTodoFooterLink.js'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/25passingStoreDownImplicityviaContext'
+import './examples/26passingStoreDownwithProviderfromRedux'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

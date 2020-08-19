@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/24passingStoreDownExplicityViaProps'
+import './examples/25passingStoreDownImplicityviaContext'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

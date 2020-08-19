@@ -56,8 +56,6 @@ const todoApp = combineReducers({
   visibilityFilter
 });
 
-const store = createStore(todoApp);
-
 const Link = ({
   active,
   children,
@@ -246,10 +244,7 @@ const getVisibleTodos = (
 
 let nextTodoId = 0;
 
-const TodoApp = ({
-  todos,
-  visibilityFilter
-}) => (
+const TodoApp = () => (
   <div>
     <AddTodo />
     <VisibleTodoList />
@@ -257,7 +252,7 @@ const TodoApp = ({
   </div>
 );
 
-
+const store = createStore(todoApp);
 ReactDOM.render(
   <TodoApp />,
   document.getElementById('root')

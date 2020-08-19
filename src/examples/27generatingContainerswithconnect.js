@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { createStore, combineReducers } from 'redux'
-
+import { Provider } from 'react-redux';
 
 const todo = (state, action) => {
   switch(action.type) {
@@ -114,7 +113,7 @@ class FilterLink extends React.Component {
   }
 }
 FilterLink.contextTypes = {
-  store: PropTypes.object
+  store: React.PropTypes.object
 };
 
 const Footer = () => (
@@ -173,44 +172,8 @@ const TodoList = ({
   </ul>
 );
 
-class VisibleTodoList extends React.Component {
-  componentDidMount() {
-    const {store} = this.context;
-    this.unsubscribe = store.subscribe(() =>
-      this.forceUpdate()
-    );
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    const {store} = this.context;
-    const state = store.getState();
-    return (
-      <TodoList
-        todos ={
-          getVisibleTodos(
-            state.todos,
-            state.visibilityFilter
-          )
-        }
-        onTodoClick={id =>
-          store.dispatch({
-            type: 'TOGGLE_TODO',
-            id
-          })
-        }
-      />
-    );
-  }
-}
-VisibleTodoList.contextTypes = {
-  store: PropTypes.object
-};
-
-const AddTodo = (props, {store}) => {
+let nextTodoId = 0;
+const AddTodo = (props, { store }) => {
   let input;
   
   return (
@@ -232,7 +195,7 @@ const AddTodo = (props, {store}) => {
   );
 };
 AddTodo.contextTypes = {
-  store: PropTypes.object
+  store: React.PropTypes.object
 };
 
 const getVisibleTodos = (
@@ -255,7 +218,43 @@ const getVisibleTodos = (
   }
 };
 
-let nextTodoId = 0;
+class VisibleTodoList extends React.Component {
+  componentDidMount() {
+    const {store} = this.context;
+    this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
+    const props = this.props;
+    const {store} = this.context;
+    const state = store.getState();
+    return (
+      <TodoList
+        todos ={
+          getVisibleTodos(
+            state.todos,
+            state.visibilityFilter
+          )
+        }
+        onTodoClick={id =>
+          store.dispatch({
+            type: 'TOGGLE_TODO',
+            id
+          })
+        }
+      />
+    );
+  }
+}
+VisibleTodoList.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const TodoApp = () => (
   <div>
@@ -264,21 +263,6 @@ const TodoApp = () => (
     <Footer />
   </div>
 );
-
-class Provider extends React.Component {
-  getChildContext() {
-    return{
-      store: this.props.store
-    };
-  }
-
-  render() {
-    return this.props.children;
-  }
-}
-Provider.childContextTypes = {
-  store: PropTypes.object
-};
 
 ReactDOM.render(
   <Provider store={createStore(todoApp)}>

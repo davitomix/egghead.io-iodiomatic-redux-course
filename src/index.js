@@ -1,6 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/23extractingContainerComponentsVisibleTodoListAddTodo'
+import './examples/24passingStoreDownExplicityViaProps'
 
 // const App = () => {
 //   return <h1>Hello World!</h1>;

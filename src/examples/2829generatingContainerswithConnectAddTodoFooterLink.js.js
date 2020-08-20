@@ -161,6 +161,25 @@ const TodoList = ({
     )}
   </ul>
 );
+const getVisibleTodos = (
+  todos,
+  filter
+) => {
+switch (filter) {
+  case 'SHOW_ALL':
+    return todos;
+  case 'SHOW_COMPLETED':
+    return todos.filter(
+      t => t.completed
+    );
+  case 'SHOW_ACTIVE':
+    return todos.filter(
+      t => !t.completed
+    );
+  default:
+    return todos;
+}
+};
 const mapStateToTodoListProps = (state) => {
   return {
     todos: getVisibleTodos(
@@ -207,26 +226,6 @@ let AddTodo = ({ dispatch }) => {
   );
 };
 AddTodo = connect()(AddTodo);
-
-const getVisibleTodos = (
-    todos,
-    filter
-) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos;
-    case 'SHOW_COMPLETED':
-      return todos.filter(
-        t => t.completed
-      );
-    case 'SHOW_ACTIVE':
-      return todos.filter(
-        t => !t.completed
-      );
-    default:
-      return todos;
-  }
-};
 
 const TodoApp = () => (
   <div>

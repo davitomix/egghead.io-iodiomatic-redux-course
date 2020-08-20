@@ -1,17 +1,21 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import './examples/extractingActionCreators.js'
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
-import { addTodo } from './actions';
-import { createStore } from 'redux'
-import todoApp from './reducers/index'
-import FilterLink from './reducers/FilterLink'
-import VisibleTodoList from './reducers/VisibleTodoList'
-// --------------------------> Components  
+import { addTodo, toggleTodo } from './actions';
+import { createStore, combineReducers } from 'redux'
+import visibilityFilter from './reducers/visibilityFilter';
+import todos from './reducers/todos';
+import FilterLink from './reducers/FilterLink';
+import TodoList from './reducers/TodoList';
+
+const todoApp = combineReducers({
+  todos,
+  visibilityFilter
+});
 
 const Footer = () => (
   <p>
@@ -36,6 +40,41 @@ const Footer = () => (
     </FilterLink>
   </p>
 )
+
+const getVisibleTodos = (
+  todos,
+  filter
+) => {
+switch (filter) {
+  case 'SHOW_ALL':
+    return todos;
+  case 'SHOW_COMPLETED':
+    return todos.filter(
+      t => t.completed
+    );
+  case 'SHOW_ACTIVE':
+    return todos.filter(
+      t => !t.completed
+    );
+  default:
+    return todos;
+}
+};
+const mapStateToTodoListProps = (state) => ({
+    todos: getVisibleTodos(
+      state.todos,
+      state.visibilityFilter
+    )
+});
+const mapDispatchToTodoListProps = (dispatch) => ({
+    onTodoClick(id) {
+      dispatch(toggleTodo(id));
+    }
+});
+const VisibleTodoList = connect(
+  mapStateToTodoListProps,
+  mapDispatchToTodoListProps
+)(TodoList);
 
 let AddTodo = ({ dispatch }) => {
   let input;

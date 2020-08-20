@@ -7,9 +7,11 @@ import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import { addTodo, toggleTodo } from './actions';
 import { createStore } from 'redux'
-import FilterLink from './reducers/FilterLink';
-import TodoList from './reducers/TodoList';
+import FilterLink from './components/FilterLink';
+import TodoList from './components/TodoList';
 import todoApp from './reducers'
+import { loadState, saveState } from './localStorage'
+import throttle from 'lodash/throttle';
 
 const Footer = () => (
   <p>
@@ -97,16 +99,15 @@ const TodoApp = () => (
   </div>
 );
 
-const persistance = {
-  todos: [{
-    id: '0',
-    text: 'Welcome back!',
-    completed: false,
-  }],
-};
+const persistedState = loadState();
 
-const store = createStore(todoApp, persistance);
-console.log(store.getState());
+const store = createStore(todoApp, persistedState);
+
+store.subscribe(throttle(() => {
+  saveState({
+    todos: store.getState().todos
+  });
+}, 1000));
 
 ReactDOM.render(
   <Provider store={store}>

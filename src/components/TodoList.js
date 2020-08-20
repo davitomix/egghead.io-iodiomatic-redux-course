@@ -21,9 +21,9 @@ export const TodoList = ({
   onTodoClick
 }) => (
   <ul>
-    {todos.map ((todo, index) => 
+    {todos.map (todo => 
       <Todo
-        key={index}
+        key={todo.id}
         {...todo}
         onClick={() => onTodoClick(todo.id)}
       />

@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^7.1.2",
     "deep-freeze": "0.0.1",
     "expect": "^26.3.0",
+    "lodash": "^4.17.20",
+    "node-uuid": "^1.4.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",

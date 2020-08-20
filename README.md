@@ -1,5 +1,5 @@
-# egghead.io Redux Course.
-> Reducers, Redux examples used during the course.
+# egghead.io Idiomatic Redux Course.
+> This repo contains the scripts built during the course.
 
 ## Built With
 

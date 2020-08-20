@@ -1,7 +1,6 @@
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

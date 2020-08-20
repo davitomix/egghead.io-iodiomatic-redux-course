@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux'
 import { Provider, connect } from 'react-redux';
 
+// --------------------------> Reducers  
 
 const todo = (state, action) => {
   switch(action.type) {
@@ -57,6 +58,8 @@ const todoApp = combineReducers({
   visibilityFilter
 });
 
+// --------------------------> Components  
+
 const Link = ({
   active,
   children,
@@ -76,7 +79,6 @@ const Link = ({
     </a>
   );
 };
-
 const mapStateToLinkProps = (
   state,
   ownProps
@@ -87,7 +89,6 @@ const mapStateToLinkProps = (
       state.visibilityFilter
   };
 };
-
 const mapDispatchToLinkProps = (
   dispatch,
   ownProps
@@ -101,7 +102,6 @@ const mapDispatchToLinkProps = (
     }
   };
 }
-
 const FilterLink = connect(
   mapStateToLinkProps,
   mapDispatchToLinkProps
@@ -147,7 +147,6 @@ const Todo = ({
     {text}
   </li>
 );
-
 const TodoList = ({
   todos,
   onTodoClick
@@ -162,7 +161,6 @@ const TodoList = ({
     )}
   </ul>
 );
-
 const mapStateToTodoListProps = (state) => {
   return {
     todos: getVisibleTodos(

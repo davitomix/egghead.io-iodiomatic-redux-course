@@ -6,16 +6,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import { addTodo, toggleTodo } from './actions';
-import { createStore, combineReducers } from 'redux'
-import visibilityFilter from './reducers/visibilityFilter';
-import todos from './reducers/todos';
+import { createStore } from 'redux'
 import FilterLink from './reducers/FilterLink';
 import TodoList from './reducers/TodoList';
-
-const todoApp = combineReducers({
-  todos,
-  visibilityFilter
-});
+import todoApp from './reducers'
 
 const Footer = () => (
   <p>

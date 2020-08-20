@@ -59,27 +59,21 @@ const todoApp = combineReducers({
 });
 
 let nextTodoId = 0;
-const addTodo = (text) => {
-  return {
-    type: 'ADD_TODO',
-    text: text,
-    id: nextTodoId++
-  };
-};
+export const addTodo = (text) => ({
+  type: 'ADD_TODO',
+  text: text,
+  id: nextTodoId++
+});
 
-const setVisibilityFilter = (filter) =>  {
-  return {
-    type: 'SET_VISIBILITY_FILTER',
-    filter: filter
-  };
-};
+export const setVisibilityFilter = (filter) =>  ({
+  type: 'SET_VISIBILITY_FILTER',
+  filter: filter
+});
 
-const toggleTodo = (id) => {
-  return {
+export const toggleTodo = (id) => ({
     type: 'TOGGLE_TODO',
     id
-  };
-};
+});
 
 // --------------------------> Components  
 
@@ -102,28 +96,14 @@ const Link = ({
     </a>
   );
 };
-const mapStateToLinkProps = (
-  state,
-  ownProps
-) => {
-  return {
-    active: 
-      ownProps.filter === 
-      state.visibilityFilter
-  };
-};
-const mapDispatchToLinkProps = (
-  dispatch,
-  ownProps
-) => {
-  return {
-    onClick: () => {
-      dispatch(
-          setVisibilityFilter(ownProps.filter)
-      );
-    }
-  };
-}
+const mapStateToLinkProps = (state, ownProps) => ({
+  active: ownProps.filter === state.visibilityFilter
+});
+const mapDispatchToLinkProps = (dispatch, ownProps) => ({
+  onClick() {
+    dispatch(setVisibilityFilter(ownProps.filter));
+  }
+});
 const FilterLink = connect(
   mapStateToLinkProps,
   mapDispatchToLinkProps
@@ -202,21 +182,17 @@ switch (filter) {
     return todos;
 }
 };
-const mapStateToTodoListProps = (state) => {
-  return {
+const mapStateToTodoListProps = (state) => ({
     todos: getVisibleTodos(
       state.todos,
       state.visibilityFilter
     )
-  };
-};
-const mapDispatchToTodoListProps = (dispatch) => {
-  return {
-    onTodoClick: (id) => {
+});
+const mapDispatchToTodoListProps = (dispatch) => ({
+    onTodoClick(id) {
       dispatch(toggleTodo(id));
     }
-  };
-};
+});
 const VisibleTodoList = connect(
   mapStateToTodoListProps,
   mapDispatchToTodoListProps

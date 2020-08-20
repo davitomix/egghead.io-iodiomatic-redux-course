@@ -3,115 +3,25 @@ import * as serviceWorker from './serviceWorker';
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider, connect } from 'react-redux';
-import { addTodo, toggleTodo } from './actions';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './components/App';
 import { createStore } from 'redux'
-import FilterLink from './components/FilterLink';
-import TodoList from './components/TodoList';
-import todoApp from './reducers'
-import { loadState, saveState } from './localStorage'
 import throttle from 'lodash/throttle';
-
-const Footer = () => (
-  <p>
-    Show:
-    {' '}
-    <FilterLink
-      filter='SHOW_ALL'
-    >
-      All
-    </FilterLink>
-    {', '}
-    <FilterLink
-      filter='SHOW_ACTIVE'
-    >
-      Active
-    </FilterLink>
-    {', '}
-    <FilterLink
-      filter='SHOW_COMPLETED'
-    >
-      Completed
-    </FilterLink>
-  </p>
-)
-
-const getVisibleTodos = (
-  todos,
-  filter
-) => {
-switch (filter) {
-  case 'SHOW_ALL':
-    return todos;
-  case 'SHOW_COMPLETED':
-    return todos.filter(
-      t => t.completed
-    );
-  case 'SHOW_ACTIVE':
-    return todos.filter(
-      t => !t.completed
-    );
-  default:
-    return todos;
-}
-};
-const mapStateToTodoListProps = (state) => ({
-    todos: getVisibleTodos(
-      state.todos,
-      state.visibilityFilter
-    )
-});
-const mapDispatchToTodoListProps = (dispatch) => ({
-    onTodoClick(id) {
-      dispatch(toggleTodo(id));
-    }
-});
-const VisibleTodoList = connect(
-  mapStateToTodoListProps,
-  mapDispatchToTodoListProps
-)(TodoList);
-
-let AddTodo = ({ dispatch }) => {
-  let input;
-  
-  return (
-    <div>
-      <input ref={ node => {
-          input = node
-        }}/>
-        <button onClick={() => {
-          dispatch(addTodo(input.value))
-          input.value = '';
-        }}>
-        Add Todo
-        </button>
-    </div>
-  );
-};
-AddTodo = connect()(AddTodo);
-
-const TodoApp = () => (
-  <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
-  </div>
-);
+import todoApp from './reducers/index';
+import { loadState, saveState } from './localStorage';
 
 const persistedState = loadState();
-
 const store = createStore(todoApp, persistedState);
-
 store.subscribe(throttle(() => {
   saveState({
     todos: store.getState().todos
   });
 }, 1000));
 
-ReactDOM.render(
+render(
   <Provider store={store}>
-    <TodoApp />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

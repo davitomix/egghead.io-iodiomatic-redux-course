@@ -1,21 +1,6 @@
 import React from 'react';
+import Todo from './Todo'
 
-const Todo = ({
-  onClick,
-  completed,
-  text
-}) => (
-  <li 
-    onClick={onClick}
-    style={{
-      textDecoration:
-        completed ?
-          'line-through' :
-          'none'
-    }}>
-    {text}
-  </li>
-);
 export const TodoList = ({
   todos,
   onTodoClick

@@ -1,30 +1,13 @@
-import './index.css';
-import * as serviceWorker from './serviceWorker';
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import App from './components/App';
-import { createStore } from 'redux'
-import throttle from 'lodash/throttle';
-import todoApp from './reducers/index';
-import { loadState, saveState } from './localStorage';
+import React from "react";
+import { render } from "react-dom";
+import configureStore from "./configureStore";
+import Root from "./components/Root";
 
-const persistedState = loadState();
-const store = createStore(todoApp, persistedState);
-store.subscribe(throttle(() => {
-  saveState({
-    todos: store.getState().todos
-  });
-}, 1000));
-
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
-
+const store = configureStore();
+render(<Root store={store} />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
